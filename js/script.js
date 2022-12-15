@@ -167,8 +167,12 @@ const { createApp } = Vue
           }
         ],
         indexIndication: 0,
+
         writinText: "",
-        answer : false
+
+        answer : false,
+
+        search: ""
       }
     },
     methods: {
@@ -193,8 +197,8 @@ const { createApp } = Vue
             this.contacts[this.indexIndication].messages.push(text);
             
             this.writinText = "";
-            
-            answer = true;
+
+            answer = null
             
             if(answer){
                 setTimeout(() => {
@@ -207,6 +211,30 @@ const { createApp } = Vue
                     answer = false
                 }, 1000);
             }
-        },   
+
+            console.log(this.contacts)
+        },  
+
+        isClicked(index){
+            if (this.indexIndication === index){
+                return "clicked"
+            } 
+            this.searchOnChat()
+            if(!this.contacts[index].visible){
+                return "d-none"
+            }
+        },
+        searchOnChat(){
+            this.contacts.filter((contact) => {
+                if (contact.name.toLowerCase().indexOf(this.search.toLocaleLowerCase())> -1){
+                    contact.visible = true
+                } else{
+                    contact.visible = false
+                }
+              })
+        },
+        
+
+
     }
   }).mount('#app')
