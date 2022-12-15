@@ -168,6 +168,7 @@ const { createApp } = Vue
         ],
         indexIndication: 0,
         writinText: "",
+        answer : false
       }
     },
     methods: {
@@ -178,7 +179,7 @@ const { createApp } = Vue
 
         isSentOrReceived(status){
             if(status === "sent"){
-                return "mt-3 align-self-end me-5 sent";
+                return "align-self-end me-5 sent";
             } else{
                 return "bg-white mt-3 ms-5";
             }
@@ -190,7 +191,22 @@ const { createApp } = Vue
                 status: 'sent'
             }
             this.contacts[this.indexIndication].messages.push(text);
-            this.writinText = ""
-        }
+            
+            this.writinText = "";
+            
+            answer = true;
+            
+            if(answer){
+                setTimeout(() => {
+                    let textAnswer = {
+                        date: '10/01/2020 15:51:00',
+                        message: 'ok',
+                        status: 'recived'
+                    }
+                    this.contacts[this.indexIndication].messages.push(textAnswer);
+                    answer = false
+                }, 1000);
+            }
+        },   
     }
   }).mount('#app')

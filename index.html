@@ -65,7 +65,7 @@
                     <div class="">{{contact.name}}</div>
                     <div>ultimo messaggio</div>
                   </div>
-                  <div>time</div>
+                  <div>12:00</div>
                 </li>
               </ul>
             </section>
@@ -74,7 +74,7 @@
           
           <section id="current-chat" class="col-8 bg-light h-100">
             <div class="row flex-column h-100">
-              <div v-for="(text, index) in contacts[indexIndication].messages" :class="isSentOrReceived(text.status)" class="col-5 py-2 rounded-2">
+              <div v-for="(text, index) in contacts[indexIndication].messages" :class="isSentOrReceived(text.status)" class="my-2 col-5 py-2 rounded-2">
                 {{text.message}}
               </div>
             </div>
