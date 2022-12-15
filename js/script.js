@@ -166,12 +166,14 @@ const { createApp } = Vue
             ],
           }
         ],
-        avatar: ""
+        indexIndication: 0,
       }
     },
     methods: {
-        getAvatarImg(){
-            this.avatar = `img/avatar${this.contacts[0].avatar}.jpg`
+        getClickedIndex(index){
+            this.indexIndication = index;
+
+            console.log(this.indexIndication)
         }
     }
   }).mount('#app')

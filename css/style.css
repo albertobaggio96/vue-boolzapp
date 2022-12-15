@@ -1,7 +1,28 @@
+header{
+  background-color: #eaeaea;
+}
+
+main{
+  height: calc(100% - 60px);
+}
+
 img{
   width: 60px;
   height: 60px;
   border-radius: 50%;
+}
+
+li{
+  list-style: none;
+}
+
+#user{
+  border-right: 1px solid #c5b8b8;
+}
+
+#current-chat{
+  background-image: url(../img/mine.jpg);
+  background-size: contain;
 }
 
 .container{
@@ -20,8 +41,4 @@ img{
 
 .bgr-light-blue{
   background-color: #8edafc;
-}
-
-li{
-  list-style: none;
 }

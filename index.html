@@ -24,17 +24,23 @@
       <div class="bgr-grey"></div>
 
 
-      <div class="container bg-light position-absolute top-50 start-50 translate-middle">
+      <div class="container position-absolute top-50 start-50 translate-middle">
         <header class="row">
-          <sectio id="user" class="col-4 border border-dark">
+          <section id="user" class="col-4 ">
             <div class="d-flex align-items-center">
               <img src="./img/avatar_io.jpg" alt="Sofia">
               <div class="ps-2">Sofia</div>
+            </div>
+          </section>
+          <section id="chatting-person" class="col-8">
+            <div class="d-flex align-items-center">
+              <img :src="`img/avatar${contacts[indexIndication].avatar}.jpg`" alt="Sofia">
+              <div>
+                <div class="ps-2">{{contacts[indexIndication].name}}</div>
+                <div>Ultimo accesso oggi alle 12:00</div>
+              </div>
 
             </div>
-          </sectio>
-          <section id="chatting-person" class="col-8 border border-dark">
-            chat
           </section>
         </header>
 
@@ -53,7 +59,7 @@
 
             <section  id="recent-chat">
               <ul  class="list-group">
-                <li class="d-flex" v-for="(contact, index) in contacts">
+                <li class="d-flex" v-for="(contact, index) in contacts" @click="getClickedIndex(index)">
                   <img :src="`img/avatar${contact.avatar}.jpg`" :alt="contact.name">
                   <div class="me-auto">
                     <div class="">{{contact.name}}</div>
@@ -62,15 +68,14 @@
                   <div>time</div>
                 </li>
               </ul>
-
             </section>
 
           </aside>
           
-          
-        
           <section id="current-chat" class="col-8 bg-light">
-
+            <div class="row">
+              
+            </div>
 
           </section>
 
