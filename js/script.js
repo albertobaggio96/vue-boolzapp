@@ -176,9 +176,16 @@ const { createApp } = Vue
       }
     },
     methods: {
+        lastMessage(element){
+            if (element.length > 16){
+               return element = element.substring(0, 14) + "...";
+            } else
+            return element; 
+        },
         getClickedIndex(index){
             this.indexIndication = index;
             console.log(this.indexIndication);
+            this.search = "";
         },
 
         isSentOrReceived(status){
@@ -198,7 +205,7 @@ const { createApp } = Vue
             
             this.writinText = "";
 
-            answer = null
+            answer = true;
             
             if(answer){
                 setTimeout(() => {
@@ -212,24 +219,24 @@ const { createApp } = Vue
                 }, 1000);
             }
 
-            console.log(this.contacts)
+            console.log(this.contacts);
         },  
 
         isClicked(index){
             if (this.indexIndication === index){
-                return "clicked"
+                return "clicked";
             } 
             this.searchOnChat()
             if(!this.contacts[index].visible){
-                return "d-none"
+                return "d-none";
             }
         },
         searchOnChat(){
             this.contacts.filter((contact) => {
                 if (contact.name.toLowerCase().indexOf(this.search.toLocaleLowerCase())> -1){
-                    contact.visible = true
+                    contact.visible = true;
                 } else{
-                    contact.visible = false
+                    contact.visible = false;
                 }
               })
         },

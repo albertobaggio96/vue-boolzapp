@@ -1,9 +1,11 @@
 header{
   background-color: #eaeaea;
+  height: 70px;
 }
 
-main{
-  height: calc(100% - 60px);
+main,
+#current-chat{
+  height: calc(100% - 70px);
 }
 
 img{
