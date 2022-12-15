@@ -42,3 +42,11 @@ li{
 .bgr-light-blue{
   background-color: #8edafc;
 }
+
+.clicked{
+  background-color: #e9ebeb;
+}
+
+.sent{
+  background-color: #d5f9ba;
+}

@@ -167,20 +167,30 @@ const { createApp } = Vue
           }
         ],
         indexIndication: 0,
+        writinText: "",
       }
     },
     methods: {
         getClickedIndex(index){
             this.indexIndication = index;
-            console.log(this.indexIndication)
+            console.log(this.indexIndication);
         },
 
         isSentOrReceived(status){
             if(status === "sent"){
-                return "bg-white mt-3 align-self-end me-5"
+                return "mt-3 align-self-end me-5 sent";
             } else{
-                return "bg-white mt-3 ms-5"
+                return "bg-white mt-3 ms-5";
             }
+        },
+        sendMessage(text){
+            text = {
+                date: '10/01/2020 15:51:00',
+                message: text,
+                status: 'sent'
+            }
+            this.contacts[this.indexIndication].messages.push(text);
+            this.writinText = ""
         }
     }
   }).mount('#app')
