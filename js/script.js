@@ -165,7 +165,13 @@ const { createApp } = Vue
                 }
             ],
           }
-        ]
+        ],
+        avatar: ""
       }
+    },
+    methods: {
+        getAvatarImg(){
+            this.avatar = `img/avatar${this.contacts[0].avatar}.jpg`
+        }
     }
   }).mount('#app')

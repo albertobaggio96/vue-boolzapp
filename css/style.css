@@ -1,0 +1,27 @@
+img{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.container{
+  height: 90vh;
+}
+
+.bgr-gree{
+  height: 20vh;
+  background-color: #009688;
+}
+
+.bgr-grey{
+  height: 80vh;
+  background-color: #d7dbd4;
+}
+
+.bgr-light-blue{
+  background-color: #8edafc;
+}
+
+li{
+  list-style: none;
+}
