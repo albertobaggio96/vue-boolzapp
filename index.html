@@ -73,8 +73,10 @@
           </aside>
           
           <section id="current-chat" class="col-8 bg-light">
-            <div class="row">
-              
+            <div class="row flex-column">
+              <div v-for="(text, index) in contacts[indexIndication].messages" :class="isSentOrReceived(text.status)" class="col-5">
+                {{text.message}}
+              </div>
             </div>
 
           </section>

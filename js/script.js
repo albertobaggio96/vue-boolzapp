@@ -172,8 +172,15 @@ const { createApp } = Vue
     methods: {
         getClickedIndex(index){
             this.indexIndication = index;
-
             console.log(this.indexIndication)
+        },
+
+        isSentOrReceived(status){
+            if(status === "sent"){
+                return "bg-white mt-3 align-self-end me-5"
+            } else{
+                return "bg-white mt-3 ms-5"
+            }
         }
     }
   }).mount('#app')
