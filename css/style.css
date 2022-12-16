@@ -1,3 +1,7 @@
+body{
+  font-family: 'Lato', sans-serif;
+}
+
 header{
   background-color: #eaeaea;
   height: 70px;
@@ -16,6 +20,10 @@ img{
 
 li{
   list-style: none;
+}
+
+input{
+  border: none;
 }
 
 #user,
@@ -43,7 +51,11 @@ aside{
 
 #writing-chat{
   height: 60px;
-  background-color: #f3eeea;
+  background-color: #f9f9f9;
+}
+
+.search-contact {
+  background-color: #f4efef;
 }
 
 .container{
@@ -68,5 +80,5 @@ aside{
 
 .clr-grey{
   color: #97999b;
-  font-size: .8rem;
+  font-size: .7rem;
 }
