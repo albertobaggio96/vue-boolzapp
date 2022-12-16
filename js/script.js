@@ -168,11 +168,13 @@ const { createApp } = Vue
         ],
         indexIndication: 0,
 
+        ring: true,
+
+        search: "",
+
         writinText: "",
-
+        
         answer : false,
-
-        search: ""
       }
     },
     methods: {

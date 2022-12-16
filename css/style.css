@@ -54,8 +54,24 @@ aside{
   background-color: #f9f9f9;
 }
 
+.bell-container{
+  width: 60px;
+  height: 60px;
+  background-color: white;
+}
+
+.fa-bell,
+.fa-bell-slash{
+  color: #8edafc;
+}
+
 .search-contact {
   background-color: #f4efef;
+}
+
+.text-hour{
+  bottom: 0;
+  right: 5px;
 }
 
 .container{
