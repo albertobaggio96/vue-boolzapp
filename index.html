@@ -19,26 +19,22 @@
 <body>
 
   <div id="app">
-    <div class="position-relative">
-      <div class="bgr-gree"></div>
-      <div class="bgr-grey"></div>
-
-
-      <div class="container position-absolute top-50 start-50 translate-middle ">
+      
+      <div class="container position-absolute top-50 start-50 translate-middle">
 
         <header class="row">
           <section id="user" class="col-4 ">
             <div class="d-flex align-items-center h-100">
               <img src="./img/avatar_io.jpg" alt="Sofia">
-              <div class="ps-2">Sofia</div>
+              <div>Sofia</div>
             </div>
           </section>
           <section id="chatting-person" class="col-8">
             <div class="d-flex align-items-center">
-              <img :src="`img/avatar${contacts[indexIndication].avatar}.jpg`" alt="Sofia">
+              <img :src="`img/avatar${contacts[indexIndication].avatar}.jpg`" :alt="contacts[indexIndication].name" class="me-3">
               <div>
-                <div class="ps-2">{{contacts[indexIndication].name}}</div>
-                <div>Ultimo accesso oggi alle 12:00</div>
+                <div>{{contacts[indexIndication].name}}</div>
+                <div class="clr-grey">Ultimo accesso oggi alle 12:00</div>
               </div>
 
             </div>
@@ -46,42 +42,42 @@
         </header>
 
         <main class="row">
-          <aside  class="col-4 bg-white h-100 overflow-scroll">
-            <section id="notification-search" class="row">
-              <div class="col-12 bgr-light-blue">
+          <aside  class="col-4 bg-white h-100 p-0">
+            <section id="notification-search ">
+              <div class="bgr-light-blue px-3">
                 <p class="mb-0">Ricevi notifiche di nuovi messaggi</p>
-                <p class="text-decoration-underline">Attiva notifiche desktop</p>
+                <p class="text-decoration-underline mb-0">Attiva notifiche desktop</p>
               </div>
-              <div class="col-12">
+              <div class="d-flex align-items-center h-100 w-100">
                 <button class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-                <input type="text" class="w-75" v-model="search">
+                <input type="text" class="" v-model="search">
               </div>
             </section>
 
             <section  id="recent-chat">
-              <ul  class="list-group row">
-                <li class="d-flex col-12 py-2" v-for="(contact, index) in contacts" @click="getClickedIndex(index)" :class="isClicked(index)">
-                  <img :src="`img/avatar${contact.avatar}.jpg`" :alt="contact.name">
+              <ul class="list-group">
+                <li class="d-flex align-items-center w-100 py-2 py-0 px-3" v-for="(contact, index) in contacts" @click="getClickedIndex(index)" :class="isClicked(index)">
+                  <img :src="`img/avatar${contact.avatar}.jpg`" :alt="contact.name" class="me-3">
                   <div class="me-auto">
-                    <div class="">{{contact.name}}</div>
-                    <div>{{lastMessage(contact.messages[contact.messages.length - 1].message)}}</div>
+                    <div>{{contact.name}}</div>
+                    <div class="clr-grey">{{lastMessage(contact.messages[contact.messages.length - 1].message)}}</div>
                   </div>
-                  <div>{{contact.messages[contact.messages.length -1].date.substring(11, 16)}}<div>
+                  <div class="clr-grey align-self-start">{{contact.messages[contact.messages.length -1].date.substring(11, 16)}}<div>
                 </li>
               </ul>
             </section>
 
           </aside>
           
-          <section id="current-chat" class="col-8 bg-light">
+          <section id="current-chat" class="col-8 bg-light h-100">
 
-            <div class="row flex-column h-100">
+            <div id="historical-chat" class="row flex-column">
               <div v-for="(text, index) in contacts[indexIndication].messages" :class="isSentOrReceived(text.status)" class="mt-3 col-5 py-2 rounded-2">
-                {{text.message}} 
-                <div>{{text.date.substring(11, 16)}}</div>
+                {{text.message}}
+                <div class="text-end clr-grey">{{text.date.substring(11, 16)}}</div>
               </div>
             </div>
-            <div class="row align-items-end justify-content-center">
+            <div id="writing-chat" class="row align-items-center justify-content-center">
               <div class="col-1 text-center">
                 <div><i class="fa-regular fa-face-smile"></i></div>
               </div>

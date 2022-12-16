@@ -9,8 +9,8 @@ main,
 }
 
 img{
-  width: 60px;
-  height: 60px;
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
 }
 
@@ -18,27 +18,40 @@ li{
   list-style: none;
 }
 
-#user{
+#user,
+aside{
   border-right: 1px solid #c5b8b8;
 }
 
-#current-chat{
+#app{
+  height: 100vh;
+  background: linear-gradient(to bottom, #009688 0px, #009688 15vh, #d9dbd4 15vh, #d9dbd4 100%);
+}
+
+#recent-chat{
+  height: calc(100% - 126px);
+  padding: 0;
+  overflow-y: auto; 
+  overflow-x: hidden; 
+}
+
+#historical-chat{
+  height: calc(100% - 60px);
   background-image: url(../img/mine.jpg);
-  background-size: contain;
+  background-size:auto;
+}
+
+#writing-chat{
+  height: 60px;
+  background-color: #f3eeea;
 }
 
 .container{
-  height: 90vh;
+  height: 95vh;
 }
 
-.bgr-gree{
-  height: 20vh;
-  background-color: #009688;
-}
-
-.bgr-grey{
-  height: 80vh;
-  background-color: #d7dbd4;
+.bgr-l-grey{
+  background-color: #fafafa;
 }
 
 .bgr-light-blue{
@@ -51,4 +64,9 @@ li{
 
 .sent{
   background-color: #d5f9ba;
+}
+
+.clr-grey{
+  color: #97999b;
+  font-size: .8rem;
 }
