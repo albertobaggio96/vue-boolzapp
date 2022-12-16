@@ -60,6 +60,10 @@ aside{
   background-color: white;
 }
 
+.container{
+  height: 95vh;
+}
+
 .fa-bell,
 .fa-bell-slash{
   color: #8edafc;
@@ -71,11 +75,12 @@ aside{
 
 .text-hour{
   bottom: 0;
-  right: 5px;
+  right: 8px;
 }
 
-.container{
-  height: 95vh;
+.message-options{
+  z-index: 1;
+  right: 8px;
 }
 
 .bgr-l-grey{

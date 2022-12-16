@@ -175,6 +175,8 @@ const { createApp } = Vue
         writinText: "",
         
         answer : false,
+
+
       }
     },
     methods: {
@@ -242,8 +244,15 @@ const { createApp } = Vue
                 }
               })
         },
-        
+        getMessageInfo(text){
+            alert(text.date)
+        },
+        getDeleteMessage(indexIndication, index){
+            this.contacts[indexIndication].messages.splice(index,1);
 
-
+            if (this.contacts[indexIndication].messages.length === 0){
+                this.contacts[indexIndication].messages = ""
+            }
+        }
     }
   }).mount('#app')
