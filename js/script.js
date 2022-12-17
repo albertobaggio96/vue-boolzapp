@@ -166,6 +166,7 @@ const { createApp } = Vue
             ],
           }
         ],
+
         indexIndication: 0,
 
         ring: true,
@@ -175,7 +176,6 @@ const { createApp } = Vue
         writinText: "",
         
         answer : false,
-
 
       }
     },
@@ -197,27 +197,25 @@ const { createApp } = Vue
             }
         },
 
-        // getTimeOfMessage(contact){
-        //     if(contact.messages.length > 0){
-
-        //     }  "contact.messages[contact.messages.length -1].date.substring(11, 16)" : ""
-        // }
-
         getClickedIndex(index){
+
             this.indexIndication = index;
             this.search = "";
         },
 
         isSentOrReceived(status){
+
             if(status === "sent"){
                 return "align-self-end me-5 sent";
             } else{
                 return "bg-white mt-3 ms-5";
             }
         },
+
         sendMessage(text){
+
             text = {
-                date: '10/01/2020 15:51:00',
+                date: `${luxon.DateTime.now().toFormat('D')} ${luxon.DateTime.now().toFormat('t')}`,
                 message: text,
                 status: 'sent'
             }
@@ -230,7 +228,7 @@ const { createApp } = Vue
             if(answer){
                 setTimeout(() => {
                     let textAnswer = {
-                        date: '10/01/2020 15:51:00',
+                        date: `${luxon.DateTime.now().toFormat('D')} ${luxon.DateTime.now().toFormat('t')}`,
                         message: 'ok',
                         status: 'recived'
                     }
@@ -241,6 +239,7 @@ const { createApp } = Vue
         },  
 
         isClicked(index){
+
             this.searchOnChat()
             if(!this.contacts[index].visible){
                 return "d-none";
@@ -249,7 +248,9 @@ const { createApp } = Vue
                 return "clicked";
             } 
         },
+
         searchOnChat(){
+
             this.contacts.forEach((contact) => {
                 if (contact.name.toLowerCase().indexOf(this.search.toLocaleLowerCase())> -1){
                     contact.visible = true;
@@ -258,15 +259,15 @@ const { createApp } = Vue
                 }
               })
         },
+        
         getMessageInfo(text){
+
             alert(text.date)
         },
-        getDeleteMessage(indexIndication, index){
-            this.contacts[indexIndication].messages.splice(index,1);
 
-            if (this.contacts[indexIndication].messages.length === 0){
-                this.contacts[indexIndication].messages = ""
-            }
+        getDeleteMessage(indexIndication, index){
+
+            this.contacts[indexIndication].messages.splice(index,1);
         }
     }
   }).mount('#app')
