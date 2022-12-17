@@ -71,13 +71,13 @@
 
             <section  id="recent-chat">
               <ul class="list-group">
-                <li class="d-flex align-items-center w-100 py-2 py-0 px-3" v-for="(contact, index) in contacts" @click="getClickedIndex(index)" :class="isClicked(index)">
+                <li v-for="(contact, index) in contacts" @click="getClickedIndex(index)" :class="isClicked(index)" class="d-flex align-items-center w-100 py-2 py-0 px-3">
                   <img :src="`img/avatar${contact.avatar}.jpg`" :alt="contact.name" class="me-3">
                   <div class="me-auto">
                     <div>{{contact.name}}</div>
-                    <div class="clr-grey">{{lastMessage(contact.messages[contact.messages.length - 1].message)}}</div>
+                    <div class="clr-grey">{{lastMessage(contact)}}</div>
                   </div>
-                  <div class="clr-grey align-self-start">{{contact.messages[contact.messages.length -1].date.substring(11, 16)}}<div>
+                  <div class="clr-grey align-self-start">{{(contact.messages.length > 0) ? contact.messages[contact.messages.length -1].date.substring(11, 16) : ""}}<div>
                 </li>
               </ul>
             </section>

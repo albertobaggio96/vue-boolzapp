@@ -180,15 +180,31 @@ const { createApp } = Vue
       }
     },
     methods: {
-        lastMessage(element){
-            if (element.length > 16){
-               return element = element.substring(0, 14) + "...";
-            } else
-            return element; 
+        lastMessage(contact){
+            
+            if(contact.messages.length > 0){
+                if (contact.messages.length > 0) {
+                    let element = contact.messages[contact.messages.length - 1].message
+                    if (element.length > 16){
+                       return element = element.substring(0, 14) + "...";
+                    } else
+                    return element; 
+                } else{
+                    return this.contacts[indexIndication].messages = ""
+                }
+            } else{
+                return contact.messages = ""
+            }
         },
+
+        // getTimeOfMessage(contact){
+        //     if(contact.messages.length > 0){
+
+        //     }  "contact.messages[contact.messages.length -1].date.substring(11, 16)" : ""
+        // }
+
         getClickedIndex(index){
             this.indexIndication = index;
-            console.log(this.indexIndication);
             this.search = "";
         },
 
@@ -222,21 +238,19 @@ const { createApp } = Vue
                     answer = false
                 }, 1000);
             }
-
-            console.log(this.contacts);
         },  
 
         isClicked(index){
-            if (this.indexIndication === index){
-                return "clicked";
-            } 
             this.searchOnChat()
             if(!this.contacts[index].visible){
                 return "d-none";
             }
+            if (this.indexIndication === index){
+                return "clicked";
+            } 
         },
         searchOnChat(){
-            this.contacts.filter((contact) => {
+            this.contacts.forEach((contact) => {
                 if (contact.name.toLowerCase().indexOf(this.search.toLocaleLowerCase())> -1){
                     contact.visible = true;
                 } else{
