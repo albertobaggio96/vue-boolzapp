@@ -47,6 +47,7 @@ aside{
   height: calc(100% - 60px);
   background-image: url(../img/mine.jpg);
   background-size:auto;
+  overflow-y: auto;
 }
 
 #writing-chat{
