@@ -198,14 +198,20 @@ const { createApp } = Vue
         },
 
         getOrderOfContactList(){
-            this.contacts.sort(function (a, b) {
-                a = a.messages[a.messages.length - 1].date
-                b = b.messages[b.messages.length - 1].date
 
-                a = `${a.substring(6, 10)}/${a.substring(3, 5)}/${a.substring(0, 2)} ${a.substring(11)}`
-                b = `${b.substring(6, 10)}/${b.substring(3, 5)}/${b.substring(0, 2)} ${b.substring(11)}`
-                return a <= b ? 1 : -1;  
-            });
+            this.contacts.forEach((contact)=>{
+                if(contact.messages.length > 0)
+                this.contacts.sort(function (a, b) {
+                    a = a.messages.length > 0 ? a.messages[a.messages.length - 1].date : ""
+                    b = b.messages.length > 0 ? b.messages[b.messages.length - 1].date : ""
+    
+                    a = `${a.substring(6, 10)}/${a.substring(3, 5)}/${a.substring(0, 2)} ${a.substring(11)}`
+                    b = `${b.substring(6, 10)}/${b.substring(3, 5)}/${b.substring(0, 2)} ${b.substring(11)}`
+                    return a <= b ? 1 : -1;  
+                });
+
+            })
+
             return this.contacts
         },
 
