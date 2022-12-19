@@ -36,11 +36,12 @@
               <i class="fa-solid fa-ellipsis-vertical fs-4 clr-grey pe-3"></i>
             </div>
           </section>
+
           <section id="chatting-person" class="col-8">
             <div class="d-flex align-items-center h-100">
-              <img :src="`img/avatar${contacts[indexIndication].avatar}.jpg`" :alt="contacts[indexIndication].name" class="me-3">
+              <img :src="`img/avatar${contacts[indexIndicated].avatar}.jpg`" :alt="contacts[indexIndicated].name" class="me-3">
               <div class="me-auto">
-                <div>{{contacts[indexIndication].name}}</div>
+                <div>{{contacts[indexIndicated].name}}</div>
                 <div class="clr-grey">Ultimo accesso oggi alle 12:00</div>
               </div>
               <i class="fa-solid fa-magnifying-glass clr-grey fs-4 pe-3"></i>
@@ -51,6 +52,7 @@
         </header>
 
         <main class="row">
+          
           <aside  class="col-4 bg-white h-100 p-0">
             <section id="notification-search ">
               <div class="bgr-light-blue px-3 py-3 d-flex align-items-center h-100">
@@ -71,7 +73,7 @@
 
             <section  id="recent-chat">
               <ul class="list-group">
-                <li v-for="(contact, index) in contacts" @click="getClickedIndex(index)" :class="isClicked(index)" class="d-flex align-items-center w-100 py-2 py-0 px-3">
+                <li v-for="(contact, index) in getOrderOfContactList()" @click="getClickedIndex(index)" :class="isClicked(index)" class="d-flex align-items-center w-100 py-2 py-0 px-3">
                   <img :src="`img/avatar${contact.avatar}.jpg`" :alt="contact.name" class="me-3">
                   <div class="me-auto">
                     <div>{{contact.name}}</div>
@@ -87,12 +89,12 @@
           <section id="current-chat" class="col-8 bg-light h-100">
 
             <div id="historical-chat" class="row flex-column pt-5">
-              <div v-for="(text, index) in contacts[indexIndication].messages" :class="isSentOrReceived(text.status)" class="mt-3 col-5 p-3 rounded-2 position-relative" @click="contacts[index].messages.messageOptions = true" @mouseleave="contacts[index].messages.messageOptions = false" >
+              <div v-for="(text, index) in contacts[indexIndicated].messages" :class="isSentOrReceived(text.status)" class="mt-3 col-5 p-3 rounded-2 position-relative" @click="contacts[index].messages.messageOptions = true" @mouseleave="contacts[index].messages.messageOptions = false" >
                 {{text.message}}
                 <div class="text-end clr-grey position-absolute text-hour">{{text.date.substring(11, 16)}}</div>
                 <div class="bg-white position-absolute p-3 rounded-2 message-options shadow-lg" :class=" this.contacts[index].messages.messageOptions ? '' : 'd-none'">
                   <div @click="getMessageInfo(text)">Message info</div>
-                  <div @click="getDeleteMessage(indexIndication, index)">Delete message</div>
+                  <div @click="contacts[indexIndicated].messages.splice(index,1)">Delete message</div>
                 </div>
               </div>
             </div>

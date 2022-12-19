@@ -167,7 +167,7 @@ const { createApp } = Vue
           }
         ],
 
-        indexIndication: 0,
+        indexIndicated: 0,
 
         ring: true,
 
@@ -177,9 +177,11 @@ const { createApp } = Vue
         
         answer : false,
 
+        orderedContact : null
       }
     },
     methods: {
+
         lastMessage(contact){
             
             if(contact.messages.length > 0){
@@ -190,16 +192,23 @@ const { createApp } = Vue
                     } else
                     return element; 
                 } else{
-                    return this.contacts[indexIndication].messages = ""
+                    return this.contacts[indexIndicated].messages = ""
                 }
             } else{
                 return contact.messages = ""
             }
         },
 
+        getOrderOfContactList(){
+            this.orderedContact = this.contacts.sort(function (a, b) {
+                return a.messages[a.messages.length - 1].date < b.messages[b.messages.length - 1].date ? 1 : -1;  
+            });
+            return this.orderedContact
+        },
+
         getClickedIndex(index){
 
-            this.indexIndication = index;
+            this.indexIndicated = index;
             this.search = "";
         },
 
@@ -219,24 +228,28 @@ const { createApp } = Vue
                 message: text,
                 status: 'sent'
             }
-            this.contacts[this.indexIndication].messages.push(text);
+            this.contacts[this.indexIndicated].messages.push(text);
             
             this.writinText = "";
 
             answer = true;
             
             if(answer){
-                setTimeout(() => {
-                    let textAnswer = {
-                        date: `${luxon.DateTime.now().toFormat('D')} ${luxon.DateTime.now().toFormat('t')}`,
-                        message: 'ok',
-                        status: 'recived'
-                    }
-                    this.contacts[this.indexIndication].messages.push(textAnswer);
-                    answer = false
-                }, 1000);
+                this.getAnAswer()
             }
         },  
+
+        getAnAswer(){
+            setTimeout(() => {
+                let textAnswer = {
+                    date: `${luxon.DateTime.now().toFormat('D')} ${luxon.DateTime.now().toFormat('t')}`,
+                    message: 'ok',
+                    status: 'recived'
+                }
+                this.contacts[this.indexIndicated].messages.push(textAnswer);
+                return answer = false
+            }, 1000);
+        },
 
         isClicked(index){
 
@@ -244,7 +257,7 @@ const { createApp } = Vue
             if(!this.contacts[index].visible){
                 return "d-none";
             }
-            if (this.indexIndication === index){
+            if (this.indexIndicated === index){
                 return "clicked";
             } 
         },
@@ -264,10 +277,5 @@ const { createApp } = Vue
 
             alert(text.date)
         },
-
-        getDeleteMessage(indexIndication, index){
-
-            this.contacts[indexIndication].messages.splice(index,1);
-        }
     }
   }).mount('#app')
