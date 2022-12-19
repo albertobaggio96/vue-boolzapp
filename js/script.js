@@ -174,9 +174,9 @@ const { createApp } = Vue
         search: "",
 
         writinText: "",
-        
-        answer : false,
 
+        audio :new Audio('http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3')
+        
       }
     },
     methods: {
@@ -232,7 +232,7 @@ const { createApp } = Vue
             this.search = "";
         },
 
-// * know if a message is sento or recived
+// * know if a message is sent or recived
         isSentOrReceived(status){
             if(status === "sent"){
                 return "align-self-end me-5 sent";
@@ -249,17 +249,12 @@ const { createApp } = Vue
                 status: 'sent'
             }
             this.contacts[this.indexIndicated].messages.push(text);
-            
-            
+                        
             this.writinText = "";
 
             this.indexIndicated = 0
 
-            answer = true;
-            
-            if(answer){
-                this.getAnAswer()
-            }
+            this.getAnAswer()  
         },  
 
 // * to get an answe after i sent a message
@@ -270,8 +265,8 @@ const { createApp } = Vue
                     message: 'ok',
                     status: 'recived'
                 }
+                this.ring ? this.audio.play() : null;
                 this.contacts[this.indexIndicated].messages.push(textAnswer);
-                return answer = false
             }, 1000);
         },
 
@@ -291,4 +286,6 @@ const { createApp } = Vue
             alert(text.date)
         },
     }
+
+
   }).mount('#app')
