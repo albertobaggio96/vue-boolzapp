@@ -27,6 +27,8 @@
       <div class="container position-absolute top-50 start-50 translate-middle">
 
         <header class="row">
+
+          <!-- my profile -->
           <section id="user" class="col-4 ">
             <div class="d-flex align-items-center h-100">
               <img src="./img/avatar_io.jpg" alt="Sofia">
@@ -37,6 +39,7 @@
             </div>
           </section>
 
+          <!-- know with who i'm chatting -->
           <section id="chatting-person" class="col-8">
             <div class="d-flex align-items-center h-100">
               <img :src="`img/avatar${contacts[indexIndicated].avatar}.jpg`" :alt="contacts[indexIndicated].name" class="me-3">
@@ -54,6 +57,8 @@
         <main class="row">
           
           <aside  class="col-4 bg-white h-100 p-0">
+
+            <!-- notification and search section -->
             <section id="notification-search ">
               <div class="bgr-light-blue px-3 py-3 d-flex align-items-center h-100">
                 <div class="bell-container d-flex align-items-center justify-content-center rounded-circle me-2" @click="ring = !ring">
@@ -71,6 +76,7 @@
               </div>
             </section>
 
+            <!-- recent person i was chat with -->
             <section  id="recent-chat">
               <ul class="list-group">
                 <li v-for="(contact, index) in getOrderOfContactList()" @click="getClickedIndex(index)" :class="isClicked(index)" class="d-flex align-items-center w-100 py-2 py-0 px-3">
@@ -88,6 +94,7 @@
           
           <section id="current-chat" class="col-8 bg-light h-100">
 
+            <!-- messages that i wrote with the person that i selected-->
             <div id="historical-chat" class="row flex-column pt-5">
               <div v-for="(text, index) in contacts[indexIndicated].messages" :class="isSentOrReceived(text.status)" class="mt-3 col-5 p-3 rounded-2 position-relative" @click="contacts[index].messages.messageOptions = true" @mouseleave="contacts[index].messages.messageOptions = false" >
                 {{text.message}}
@@ -98,7 +105,9 @@
                 </div>
               </div>
             </div>
-            <div id="writing-chat" class="row align-items-center justify-content-center">
+
+            <!-- where i can white a new message -->
+            <section id="writing-chat" class="row align-items-center justify-content-center">
               <div class="col-1 text-center">
                 <div><i class="fa-regular fa-face-smile fs-4 clr-grey"></i></div>
               </div>
@@ -108,7 +117,7 @@
               <div class="col-1 text-center">
                 <i class="fa-solid fa-microphone fs-4 clr-grey"></i>
               </div>
-            </div>
+            </section>
 
           </section>
 

@@ -180,8 +180,37 @@ const { createApp } = Vue
       }
     },
     methods: {
+// * order contact from last messsage send or recived to the oldest one
+        getOrderOfContactList(){
+            this.contacts.forEach((contact)=>{
+                if(contact.messages.length > 0)
+                this.contacts.sort(function (a, b) {
+                    a = a.messages.length > 0 ? a.messages[a.messages.length - 1].date : ""
+                    b = b.messages.length > 0 ? b.messages[b.messages.length - 1].date : ""
+    
+                    a = `${a.substring(6, 10)}/${a.substring(3, 5)}/${a.substring(0, 2)} ${a.substring(11)}`
+                    b = `${b.substring(6, 10)}/${b.substring(3, 5)}/${b.substring(0, 2)} ${b.substring(11)}`
+
+                    return a <= b ? 1 : -1;  
+                });
+            })
+
+            return this.contacts
+        },
+
+// * search person from input text on recent chat
+        searchOnChat(){
+            this.contacts.forEach((contact) => {
+                if (contact.name.toLowerCase().indexOf(this.search.toLocaleLowerCase())> -1){
+                    contact.visible = true;
+                } else{
+                    contact.visible = false;
+                }
+              })
+        },
+
+// * get last message of every person
         lastMessage(contact){
-            
             if(contact.messages.length > 0){
                 if (contact.messages.length > 0) {
                     let element = contact.messages[contact.messages.length - 1].message
@@ -197,32 +226,14 @@ const { createApp } = Vue
             }
         },
 
-        getOrderOfContactList(){
-
-            this.contacts.forEach((contact)=>{
-                if(contact.messages.length > 0)
-                this.contacts.sort(function (a, b) {
-                    a = a.messages.length > 0 ? a.messages[a.messages.length - 1].date : ""
-                    b = b.messages.length > 0 ? b.messages[b.messages.length - 1].date : ""
-    
-                    a = `${a.substring(6, 10)}/${a.substring(3, 5)}/${a.substring(0, 2)} ${a.substring(11)}`
-                    b = `${b.substring(6, 10)}/${b.substring(3, 5)}/${b.substring(0, 2)} ${b.substring(11)}`
-                    return a <= b ? 1 : -1;  
-                });
-
-            })
-
-            return this.contacts
-        },
-
+// * get index where i klicked
         getClickedIndex(index){
-
             this.indexIndicated = index;
             this.search = "";
         },
 
+// * know if a message is sento or recived
         isSentOrReceived(status){
-
             if(status === "sent"){
                 return "align-self-end me-5 sent";
             } else{
@@ -230,8 +241,8 @@ const { createApp } = Vue
             }
         },
 
+// * for send messages
         sendMessage(text){
-
             text = {
                 date: `${luxon.DateTime.now().toFormat('D')} ${luxon.DateTime.now().toFormat('TT')}`,
                 message: text,
@@ -251,6 +262,7 @@ const { createApp } = Vue
             }
         },  
 
+// * to get an answe after i sent a message
         getAnAswer(){
             setTimeout(() => {
                 let textAnswer = {
@@ -263,8 +275,8 @@ const { createApp } = Vue
             }, 1000);
         },
 
+// * to see the chat where i was clicked
         isClicked(index){
-
             this.searchOnChat()
             if(!this.contacts[index].visible){
                 return "d-none";
@@ -274,19 +286,8 @@ const { createApp } = Vue
             } 
         },
 
-        searchOnChat(){
-
-            this.contacts.forEach((contact) => {
-                if (contact.name.toLowerCase().indexOf(this.search.toLocaleLowerCase())> -1){
-                    contact.visible = true;
-                } else{
-                    contact.visible = false;
-                }
-              })
-        },
-        
+// * to get info about that message
         getMessageInfo(text){
-
             alert(text.date)
         },
     }
