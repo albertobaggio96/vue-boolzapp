@@ -177,11 +177,9 @@ const { createApp } = Vue
         
         answer : false,
 
-        orderedContact : null
       }
     },
     methods: {
-
         lastMessage(contact){
             
             if(contact.messages.length > 0){
@@ -200,10 +198,15 @@ const { createApp } = Vue
         },
 
         getOrderOfContactList(){
-            this.orderedContact = this.contacts.sort(function (a, b) {
-                return a.messages[a.messages.length - 1].date < b.messages[b.messages.length - 1].date ? 1 : -1;  
+            this.contacts.sort(function (a, b) {
+                a = a.messages[a.messages.length - 1].date
+                b = b.messages[b.messages.length - 1].date
+
+                a = `${a.substring(6, 10)}/${a.substring(3, 5)}/${a.substring(0, 2)} ${a.substring(11)}`
+                b = `${b.substring(6, 10)}/${b.substring(3, 5)}/${b.substring(0, 2)} ${b.substring(11)}`
+                return a <= b ? 1 : -1;  
             });
-            return this.orderedContact
+            return this.contacts
         },
 
         getClickedIndex(index){
@@ -224,13 +227,16 @@ const { createApp } = Vue
         sendMessage(text){
 
             text = {
-                date: `${luxon.DateTime.now().toFormat('D')} ${luxon.DateTime.now().toFormat('t')}`,
+                date: `${luxon.DateTime.now().toFormat('D')} ${luxon.DateTime.now().toFormat('TT')}`,
                 message: text,
                 status: 'sent'
             }
             this.contacts[this.indexIndicated].messages.push(text);
             
+            
             this.writinText = "";
+
+            this.indexIndicated = 0
 
             answer = true;
             
