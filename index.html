@@ -23,107 +23,100 @@
 <body>
 
   <div id="app">
+   
+    <div class="container position-absolute top-50 start-50 translate-middle">
+      <header class="row">
+        <!-- my profile -->
+        <section id="user" class="col-4 ">
+          <div class="d-flex align-items-center h-100">
+            <img src="./img/avatar_io.jpg" alt="Sofia">
+            <div class="me-auto">Sofia</div>
+            <i class="fa-solid fa-circle-notch fs-4 clr-grey pe-3"></i>
+            <i class="fa-solid fa-message fs-4 clr-grey pe-3"></i>
+            <i class="fa-solid fa-ellipsis-vertical fs-4 clr-grey pe-3"></i>
+          </div>
+        </section>
+
+        <!-- know with who i'm chatting -->
+        <section id="chatting-person" class="col-8">
+          <div class="d-flex align-items-center h-100">
+            <img :src="`img/avatar${contacts[indexIndicated].avatar}.jpg`" :alt="contacts[indexIndicated].name" class="me-3">
+            <div class="me-auto">
+              <div>{{contacts[indexIndicated].name}}</div>
+              <div class="clr-grey">Ultimo accesso oggi alle 12:00</div>
+            </div>
+            <i class="fa-solid fa-magnifying-glass clr-grey fs-4 pe-3"></i>
+            <i class="fa-solid fa-paperclip fs-4 clr-grey pe-3"></i>
+            <i class="fa-solid fa-ellipsis-vertical fs-4 clr-grey pe-3"></i>
+          </div>
+        </section>
+      </header>
       
-      <div class="container position-absolute top-50 start-50 translate-middle">
-
-        <header class="row">
-
-          <!-- my profile -->
-          <section id="user" class="col-4 ">
-            <div class="d-flex align-items-center h-100">
-              <img src="./img/avatar_io.jpg" alt="Sofia">
-              <div class="me-auto">Sofia</div>
-              <i class="fa-solid fa-circle-notch fs-4 clr-grey pe-3"></i>
-              <i class="fa-solid fa-message fs-4 clr-grey pe-3"></i>
-              <i class="fa-solid fa-ellipsis-vertical fs-4 clr-grey pe-3"></i>
+      <main class="row">
+        
+        <aside  class="col-4 bg-white h-100 p-0">
+          <!-- notification and search section -->
+          <section id="notification-search ">
+            <div class="bgr-light-blue px-3 py-3 d-flex align-items-center h-100">
+              <div class="bell-container d-flex align-items-center justify-content-center rounded-circle me-2" @click="ring = !ring; ">
+                <i class="fa-solid fa-bell fs-4" :class="ring ? '' : 'd-none' "></i>
+                <i class="fa-solid fa-bell-slash fs-4" :class="ring ? 'd-none' : '' "></i>
+              </div>
+              <div>
+                <p class="mb-0">Ricevi notifiche di nuovi messaggi</p>
+                <p class="text-decoration-underline mb-0 text-secondary" @click="ring = !ring">Attiva notifiche desktop</p>
+              </div>
+            </div>
+            <div class="d-flex align-items-center h-100 w-100 search-contact px-3 py-2">
+              <i class="fa-solid fa-magnifying-glass clr-grey pe-2 fs-6"></i>
+              <input type="text" id="search" class="w-100 rounded-2 px-2" v-model="search" placeholder=" Cerca o inizia una nuova chat">
             </div>
           </section>
 
-          <!-- know with who i'm chatting -->
-          <section id="chatting-person" class="col-8">
-            <div class="d-flex align-items-center h-100">
-              <img :src="`img/avatar${contacts[indexIndicated].avatar}.jpg`" :alt="contacts[indexIndicated].name" class="me-3">
-              <div class="me-auto">
-                <div>{{contacts[indexIndicated].name}}</div>
-                <div class="clr-grey">Ultimo accesso oggi alle 12:00</div>
+          <!-- recent person i was chat with -->
+          <section  id="recent-chat">
+            <ul class="list-group">
+              <li v-for="(contact, index) in getOrderOfContactList()" @click="getClickedIndex(index)" :class="isClicked(index)" class="d-flex align-items-center w-100 py-2 py-0 px-3">
+                <img :src="`img/avatar${contact.avatar}.jpg`" :alt="contact.name" class="me-3">
+                <div class="me-auto">
+                  <div>{{contact.name}}</div>
+                  <div class="clr-grey">{{lastMessage(contact)}}</div>
+                </div>
+                <div class="clr-grey align-self-start">{{(contact.messages.length > 0) ? contact.messages[contact.messages.length -1].date.substring(11, 16) : ""}}<div>
+              </li>
+            </ul>
+          </section>
+        </aside>
+        
+        <section id="current-chat" class="col-8 bg-light h-100">
+          <!-- messages that i wrote with the person that i selected-->
+          <section id="historical-chat" class="d-flex flex-column pt-5 w-100">
+            <div v-for="(text, index) in contacts[indexIndicated].messages" :class="isSentOrReceived(text.status)" class="mt-3 w-50 p-3 rounded-2 position-relative" @click="contacts[index].messages.messageOptions = true" @mouseleave="contacts[index].messages.messageOptions = false" >
+              {{text.message}}
+              <div class="text-end clr-grey position-absolute text-hour">{{text.date.substring(11, 16)}}</div>
+              <div class="bg-white position-absolute p-3 rounded-2 message-options shadow-lg" :class=" this.contacts[index].messages.messageOptions ? '' : 'd-none'">
+                <div @click="getMessageInfo(text)">Message info</div>
+                <div @click="contacts[indexIndicated].messages.splice(index,1)">Delete message</div>
               </div>
-              <i class="fa-solid fa-magnifying-glass clr-grey fs-4 pe-3"></i>
-              <i class="fa-solid fa-paperclip fs-4 clr-grey pe-3"></i>
-              <i class="fa-solid fa-ellipsis-vertical fs-4 clr-grey pe-3"></i>
             </div>
           </section>
-        </header>
 
-        <main class="row">
-          
-          <aside  class="col-4 bg-white h-100 p-0">
-
-            <!-- notification and search section -->
-            <section id="notification-search ">
-              <div class="bgr-light-blue px-3 py-3 d-flex align-items-center h-100">
-                <div class="bell-container d-flex align-items-center justify-content-center rounded-circle me-2" @click="ring = !ring; ">
-                  <i class="fa-solid fa-bell fs-4" :class="ring ? '' : 'd-none' "></i>
-                  <i class="fa-solid fa-bell-slash fs-4" :class="ring ? 'd-none' : '' "></i>
-                </div>
-                <div>
-                  <p class="mb-0">Ricevi notifiche di nuovi messaggi</p>
-                  <p class="text-decoration-underline mb-0 text-secondary" @click="ring = !ring">Attiva notifiche desktop</p>
-                </div>
-              </div>
-              <div class="d-flex align-items-center h-100 w-100 search-contact px-3 py-2">
-                <i class="fa-solid fa-magnifying-glass clr-grey pe-2 fs-6"></i>
-                <input type="text" id="search" class="w-100 rounded-2 px-2" v-model="search" placeholder=" Cerca o inizia una nuova chat">
-              </div>
-            </section>
-
-            <!-- recent person i was chat with -->
-            <section  id="recent-chat">
-              <ul class="list-group">
-                <li v-for="(contact, index) in getOrderOfContactList()" @click="getClickedIndex(index)" :class="isClicked(index)" class="d-flex align-items-center w-100 py-2 py-0 px-3">
-                  <img :src="`img/avatar${contact.avatar}.jpg`" :alt="contact.name" class="me-3">
-                  <div class="me-auto">
-                    <div>{{contact.name}}</div>
-                    <div class="clr-grey">{{lastMessage(contact)}}</div>
-                  </div>
-                  <div class="clr-grey align-self-start">{{(contact.messages.length > 0) ? contact.messages[contact.messages.length -1].date.substring(11, 16) : ""}}<div>
-                </li>
-              </ul>
-            </section>
-
-          </aside>
-          
-          <section id="current-chat" class="col-8 bg-light h-100">
-
-            <!-- messages that i wrote with the person that i selected-->
-            <section id="historical-chat" class="d-flex flex-column pt-5 w-100">
-              <div v-for="(text, index) in contacts[indexIndicated].messages" :class="isSentOrReceived(text.status)" class="mt-3 w-50 p-3 rounded-2 position-relative" @click="contacts[index].messages.messageOptions = true" @mouseleave="contacts[index].messages.messageOptions = false" >
-                {{text.message}}
-                <div class="text-end clr-grey position-absolute text-hour">{{text.date.substring(11, 16)}}</div>
-                <div class="bg-white position-absolute p-3 rounded-2 message-options shadow-lg" :class=" this.contacts[index].messages.messageOptions ? '' : 'd-none'">
-                  <div @click="getMessageInfo(text)">Message info</div>
-                  <div @click="contacts[indexIndicated].messages.splice(index,1)">Delete message</div>
-                </div>
-              </div>
-            </section>
-
-            <!-- where i can white a new message -->
-            <section id="writing-chat" class="row align-items-center justify-content-center">
-              <div class="col-1 text-center">
-                <div><i class="fa-regular fa-face-smile fs-4 clr-grey"></i></div>
-              </div>
-              <div class="col-10">
-                <input type="text" class="w-100 rounded-2 px-2" v-model="writinText" @keyup.enter="sendMessage(writinText)" placeholder="Scrivi un messaggio">
-              </div>
-              <div class="col-1 text-center">
-                <i class="fa-solid fa-microphone fs-4 clr-grey"></i>
-              </div>
-            </section>
-
+          <!-- where i can white a new message -->
+          <section id="writing-chat" class="row align-items-center justify-content-center">
+            <div class="col-1 text-center">
+              <div><i class="fa-regular fa-face-smile fs-4 clr-grey"></i></div>
+            </div>
+            <div class="col-10">
+              <input type="text" class="w-100 rounded-2 px-2" v-model="writinText" @keyup.enter="sendMessage(writinText)" placeholder="Scrivi un messaggio">
+            </div>
+            <div class="col-1 text-center">
+              <i class="fa-solid fa-microphone fs-4 clr-grey"></i>
+            </div>
           </section>
-
-        </main>
-      </div>
+        </section>
+      </main>
     </div>
+
   </div>
 
 
