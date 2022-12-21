@@ -91,10 +91,10 @@
         <section id="current-chat" class="col-8 bg-light h-100">
           <!-- messages that i wrote with the person that i selected-->
           <section id="historical-chat" class="d-flex flex-column pt-5 w-100">
-            <div v-for="(text, index) in contacts[indexIndicated].messages" :class="isSentOrReceived(text.status)" class="mt-3 w-50 p-3 rounded-2 position-relative" @click="contacts[index].messages.messageOptions = true" @mouseleave="contacts[index].messages.messageOptions = false" >
+            <div v-for="(text, index) in contacts[indexIndicated].messages" :class="isSentOrReceived(text.status)" class="mt-3 w-50 p-3 rounded-2 position-relative" @click="contacts[indexIndicated].messages[index].messageOptions = true" @mouseleave="contacts[indexIndicated].messages[index].messageOptions = false" >
               {{text.message}}
               <div class="text-end clr-grey position-absolute text-hour">{{text.date.substring(11, 16)}}</div>
-              <div class="bg-white position-absolute p-3 rounded-2 message-options shadow-lg" :class=" this.contacts[index].messages.messageOptions ? '' : 'd-none'">
+              <div class="bg-white position-absolute p-3 rounded-2 message-options shadow-lg" :class=" this.contacts[indexIndicated].messages[index].messageOptions ? '' : 'd-none'">
                 <div @click="getMessageInfo(text)">Message info</div>
                 <div @click="contacts[indexIndicated].messages.splice(index,1)">Delete message</div>
               </div>
