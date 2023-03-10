@@ -187,14 +187,13 @@ const { createApp } = Vue
                 this.contacts.sort(function (a, b) {
                     a = a.messages.length > 0 ? a.messages[a.messages.length - 1].date : ""
                     b = b.messages.length > 0 ? b.messages[b.messages.length - 1].date : ""
-    
+
                     a = `${a.substring(6, 10)}/${a.substring(3, 5)}/${a.substring(0, 2)} ${a.substring(11)}`
                     b = `${b.substring(6, 10)}/${b.substring(3, 5)}/${b.substring(0, 2)} ${b.substring(11)}`
 
                     return a <= b ? 1 : -1;  
                 });
             })
-
             return this.contacts
         },
 
@@ -244,7 +243,7 @@ const { createApp } = Vue
 // * for send messages
         sendMessage(text){
             text = {
-                date: `${luxon.DateTime.now().toFormat('D')} ${luxon.DateTime.now().toFormat('TT')}`,
+                date: `${luxon.DateTime.now().toFormat('dd')}/${luxon.DateTime.now().toFormat('LL')}/${luxon.DateTime.now().toFormat('y')} ${luxon.DateTime.now().toFormat('TT')}`,
                 message: text,
                 status: 'sent'
             }
@@ -261,7 +260,7 @@ const { createApp } = Vue
         getAnAswer(){
             setTimeout(() => {
                 let textAnswer = {
-                    date: `${luxon.DateTime.now().toFormat('D')} ${luxon.DateTime.now().toFormat('t')}`,
+                    date: `${luxon.DateTime.now().toFormat('dd')}/${luxon.DateTime.now().toFormat('LL')}/${luxon.DateTime.now().toFormat('y')} ${luxon.DateTime.now().toFormat('t')}`,
                     message: 'ok',
                     status: 'recived'
                 }
@@ -289,3 +288,7 @@ const { createApp } = Vue
 
 
   }).mount('#app')
+
+  let information = '10/03/2023 16:30:00'
+//   information = '10/01/2020 15:51:00'
+  console.log(`${information.substring(6, 10)}/${information.substring(3, 5)}/${information.substring(0, 2)} ${information.substring(11)}`)
